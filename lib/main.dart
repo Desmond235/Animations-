@@ -1,5 +1,4 @@
 
-import 'package:animation_starter_code/implicit_examples/animated_shopping_cart_button.dart';
 import 'package:animation_starter_code/implicit_examples/animated_tween_animation_builder_example.dart';
 import 'package:flutter/material.dart';
 
