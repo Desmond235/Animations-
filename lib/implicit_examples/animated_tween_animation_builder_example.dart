@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PulsatingCircleAnimation extends StatelessWidget {
+class PulsatingCircleAnimation extends StatefulWidget {
   const PulsatingCircleAnimation({super.key});
 
+  @override
+  State<PulsatingCircleAnimation> createState() =>
+      _PulsatingCircleAnimationState();
+}
 
+class _PulsatingCircleAnimationState extends State<PulsatingCircleAnimation> {
+  double _value = 200;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,8 +18,13 @@ class PulsatingCircleAnimation extends StatelessWidget {
       ),
       body: Center(
         child: TweenAnimationBuilder(
-          tween: Tween<double>(begin: 0, end: 200),
+          tween: Tween<double>(begin: 0, end: _value),
           duration: const Duration(milliseconds: 1500),
+          onEnd: () {
+            setState(() {
+              _value == 0 ? _value = 300 : _value = 0;
+            });
+          },
           builder: (context, size, child) {
             return Container(
               width: size,
