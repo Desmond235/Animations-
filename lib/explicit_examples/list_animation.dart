@@ -16,26 +16,21 @@ class _ListAnimationState extends State<ListAnimation>
   @override
   void initState() {
     animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    );
+        vsync: this,
+        duration: const Duration(
+          seconds: 5,
+        ));
 
+        
     slideAnimation = List.generate(itemCount, (index) {
       return Tween(begin: const Offset(-1, 0), end: Offset.zero).animate(
         CurvedAnimation(
           parent: animationController,
-          // interval animation
           curve: Interval(index * (1 / itemCount), 1),
         ),
       );
     });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -56,13 +51,7 @@ class _ListAnimationState extends State<ListAnimation>
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (animationController.isCompleted) {
-            animationController.reverse();
-          } else {
-            animationController.forward();
-          }
-        },
+        onPressed: () {},
         child: const Icon(Icons.done),
       ),
     );
