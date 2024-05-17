@@ -9,23 +9,21 @@ class ListAnimation extends StatefulWidget {
 
 class _ListAnimationState extends State<ListAnimation>
     with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
+  late AnimationController controller;
   late List<Animation<Offset>> slideAnimation = [];
   final int itemCount = 5;
 
   @override
   void initState() {
-    animationController = AnimationController(
-        vsync: this,
-        duration: const Duration(
-          seconds: 5,
-        ));
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
 
-        
     slideAnimation = List.generate(itemCount, (index) {
       return Tween(begin: const Offset(-1, 0), end: Offset.zero).animate(
         CurvedAnimation(
-          parent: animationController,
+          parent: controller,
           curve: Interval(index * (1 / itemCount), 1),
         ),
       );
@@ -40,7 +38,7 @@ class _ListAnimationState extends State<ListAnimation>
         title: const Text('List Animation'),
       ),
       body: ListView.builder(
-        itemCount: itemCount,
+        itemCount: 5,
         itemBuilder: (context, index) {
           return SlideTransition(
             position: slideAnimation[index],
@@ -51,7 +49,13 @@ class _ListAnimationState extends State<ListAnimation>
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (controller.isCompleted) {
+            controller.reverse();
+          } else {
+            controller.forward();
+          }
+        },
         child: const Icon(Icons.done),
       ),
     );
